@@ -18,9 +18,10 @@ var JSON2 = (function () {
     }
 
     function concatSpaceIndent(n) {
-        var indent = '';
+        var indent = '',
+            index = -1;
 
-        for (var i = 0; i < n; i++) {
+        while (++index < n) {
             indent += ' ';
         }
         return indent;
