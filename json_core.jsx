@@ -77,7 +77,7 @@ var JSON2 = (function () {
 
     function stringify(object, indent) {
         indent = isString(indent) ? indent : concatSpaceIndent(indent);
-        return valueToJson(object, indent, '');
+        return stringifyValue(object, indent, '');
     }
 
     function stringifyArray(array, indent, gap) {
@@ -87,7 +87,7 @@ var JSON2 = (function () {
         var partial = [];
 
         each(array, function (value, index) {
-            partial[index] = valueToJson(value, indent, gap);
+            partial[index] = stringifyValue(value, indent, gap);
         });
         return partial.length === 0 ? '[]' : concatJson('[', partial, gap, mind, ']');
     }
@@ -101,12 +101,12 @@ var JSON2 = (function () {
         var partial = [];
 
         forOwn(object, function (value, key) {
-            partial.push(concatJsonKey(key) + colon + valueToJson(value, indent, gap));
+            partial.push(concatJsonKey(key) + colon + stringifyValue(value, indent, gap));
         });
         return partial.length === 0 ? '{}' : concatJson('{', partial, gap, mind, '}');
     }
 
-    function valueToJson(value, indent, gap) {
+    function stringifyValue(value, indent, gap) {
         if (value == null) return 'null';
         var primitive = getPrimitiveValue(value);
         var type = typeof primitive;
