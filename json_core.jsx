@@ -27,7 +27,14 @@ var JSON2 = (function () {
         return indent;
     }
 
-    function each(array, iteratee) {
+    function escapeJsonKey(string) {
+        return string.replace(reEscapedJson, function (matched) {
+            var escaped = jsonEscapes[matched];
+            return isString(escaped) ? escaped : hexEncode(matched);
+        });
+    }
+
+    function forEach(array, iteratee) {
         var index = -1,
             length = array.length;
 
@@ -35,13 +42,6 @@ var JSON2 = (function () {
             iteratee(array[index], index, array);
         }
         return array;
-    }
-
-    function escapeJsonKey(string) {
-        return string.replace(reEscapedJson, function (matched) {
-            var escaped = jsonEscapes[matched];
-            return isString(escaped) ? escaped : hexEncode(matched);
-        });
     }
 
     function forOwn(object, iteratee) {
@@ -91,7 +91,7 @@ var JSON2 = (function () {
 
         var partial = [];
 
-        each(array, function (value, index) {
+        forEach(array, function (value, index) {
             partial[index] = stringifyValue(value, indent, gap);
         });
         return partial.length === 0 ? '[]' : concatJson('[', partial, gap, mind, ']');
