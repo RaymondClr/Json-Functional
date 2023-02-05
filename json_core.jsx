@@ -47,13 +47,13 @@ var JSON2 = (function () {
     function forOwn(object, iteratee) {
         for (var key in object) {
             if (has(object, key)) {
-                if (iteratee(object[key], key, object) === false) return;
+                iteratee(object[key], key, object);
             }
         }
     }
 
     function getPrimitiveValue(value) {
-        return value instanceof Date ? value.toString() : value.valueOf();
+        return isDate(value) ? value.toString() : value.valueOf();
     }
 
     function has(object, key) {
@@ -66,6 +66,10 @@ var JSON2 = (function () {
 
     function isArray(object) {
         return objectToString.call(object) === '[object Array]';
+    }
+
+    function isDate(value) {
+        return value instanceof Date;
     }
 
     function isString(value) {
