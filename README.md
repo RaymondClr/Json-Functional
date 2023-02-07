@@ -5,7 +5,7 @@
 
 | json2                                       | json-core                     | 说明                 |
 | ------------------------------------------- | ----------------------------- | -------------------- |
-| JSON.stringify(value[, replacer [, space]]) | JSON2.stringify(value, space) | 移除了 replacer 功能 |
+| JSON.stringify(value[, replacer [, space]]) | JSON2.stringify(value [, space]) | 移除了 replacer 功能 |
 | JSON.parse(text[, reviver])                 | JSON2.parse(text)             | 移除了 reviver 功能  |
 
 ## 用法：
